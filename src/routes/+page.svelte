@@ -2,36 +2,39 @@
     import { space } from "svelte/internal";
 	import Calculator from "./Calculator.svelte";
 
-	let current_tab = "default";
+	
+	let tabs = ["hello", "Gertings", "ANT215", "CSC427"]
+	let current_tab = tabs[0];
 
 </script>
 
-<div class="sm:hidden">
-    <label for="tabs" class="sr-only">Select your country</label>
-    <select id="tabs" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-        <option>Profile</option>
-        <option>Canada</option>
-        <option>France</option>
-        <option>Germany</option>
-    </select>
-</div>
-<ul class="hidden sm:flex text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg shadow  dark:divide-gray-700 dark:text-gray-400">
-    <li class="w-full">
-        <a href="#" class="inline-block w-full p-4 text-gray-900 bg-gray-100 rounded-l-lg focus:ring-4 focus:ring-blue-300 active focus:outline-none dark:bg-gray-700 dark:text-white" aria-current="page">Profile</a>
-    </li>
-    <li class="w-full">
-        <a href="#" class="inline-block w-full p-4 bg-white hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700">Dashboard</a>
-    </li>
-    <li class="w-full">
-        <a href="#" class="inline-block w-full p-4 bg-white hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700">Settings</a>
-    </li>
-    <li class="w-full">
-        <a href="#" class="inline-block w-full p-4 bg-white rounded-r-lg hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700">Invoice</a>
-    </li>
-</ul>
+<div class="w-full sm:flex gap-8 h-screen">
+	
+	<div class="w-full sm:block sm:w-2/5 md:w-54 columns-1 shadow bg-indigo-300 p-2">
+		<h1 class="text-white text-center pb-8 pt-5 text-2xl font-sans font-bold underline underline-offset-8">Grade Calculator</h1>
+		{#each tabs as tab, i (i)}
+			<button class="tab text-left" on:click={() => {current_tab = tab}}>{tab}</button>
+		{/each}
+		<button class="tab border border-indigo-200">+</button>
+	</div>
+	
+	<div class="w-full mt-8 z-0">
+		<Calculator bind:table_name={current_tab}/>
+		<p>{current_tab}</p>
+	</div>
+		
 
-<div class="mt-8" ><Calculator table_name={current_tab}/></div>
+</div>
 
 <style>
+.tab {
+	@apply bg-indigo-300 text-white font-bold text-lg p-2 px-4 rounded-xl text-center w-full;
+}
+.tab:hover{
+	@apply bg-indigo-400;
+}
 
+.tab:active{
+	@apply bg-indigo-500;
+}
 </style>

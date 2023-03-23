@@ -7,12 +7,17 @@
 	let weights = Array(count);
 	let names = Array(count);
 	
-	if( table_name in localStorage ){
-		let vals = JSON.parse(localStorage.getItem("default"));
+	$: if( table_name in localStorage ){
+		let vals = JSON.parse(localStorage.getItem(table_name));
 		count = vals.marks.length;
 		marks = vals.marks;
 		weights = vals.weights;
 		names = vals.names;
+	}else{
+		count = 7;
+		marks = Array(count);
+		weights = Array(count);
+		names = Array(count);
 	}
 
 	function removeEntry(id){
