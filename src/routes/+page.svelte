@@ -12,7 +12,7 @@
 	let edit_bind = "";
 
 	function makeNewTab(name){
-		tabs = [...tabs, get_unique_name(name)]
+		tabs = [...tabs, get_unique_name(name)];
 	}
 
 	function deleteTab(name){
@@ -24,7 +24,7 @@
 	function renameTab(name, edit_bind){
 		if(name === edit_bind) return;
 
-		let n_name = get_unique_name(edit_bind)
+		let n_name = get_unique_name(edit_bind);
 
 		localStorage.setItem(n_name, localStorage.getItem(name));
 		localStorage.removeItem(name);
