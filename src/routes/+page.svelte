@@ -4,7 +4,9 @@
 
 	
 	let tabs = Object.keys(localStorage);
+	if(tabs.length === 0)tabs = ["New Course"];
 	tabs.sort();
+	
 	let current_tab = tabs[0];
 	let dropdown = false;
 
@@ -19,6 +21,7 @@
 		localStorage.removeItem(name);
 		let i = tabs.indexOf(name);
 		if(i !== -1) tabs = [...tabs.slice(0, i), ...tabs.slice(i + 1)];
+		if(tabs.length === 0)tabs = ["New Course"];
 	}
 
 	function renameTab(name, edit_bind){
