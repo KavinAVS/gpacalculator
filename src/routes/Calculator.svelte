@@ -7,17 +7,21 @@
 	let weights = Array(count);
 	let names = Array(count);
 	
-	$: if( table_name in localStorage ){
-		let vals = JSON.parse(localStorage.getItem(table_name));
-		count = vals.marks.length;
-		marks = vals.marks;
-		weights = vals.weights;
-		names = vals.names;
-	}else{
-		count = 7;
-		marks = Array(count);
-		weights = Array(count);
-		names = Array(count);
+	
+	$: getTableVal(table_name);
+	function getTableVal(table_name){
+		if(table_name in localStorage){
+			let vals = JSON.parse(localStorage.getItem(table_name));
+			count = vals.marks.length;
+			marks = vals.marks;
+			weights = vals.weights;
+			names = vals.names;
+		}else{
+			count = 7;
+			marks = Array(count);
+			weights = Array(count);
+			names = Array(count);
+		}
 	}
 
 	function removeEntry(id){
@@ -32,8 +36,8 @@
 	$:current_average =  completed_average/total_weight;
 	$:needed = (aim - (completed_average/100))/ (100-total_weight)*100;
 
-	$:{saveToLocalStrg(names,marks,weights);}
-
+	
+	$: saveToLocalStrg(names,marks,weights);
 	function saveToLocalStrg(names, marks, weights){
 		localStorage.setItem(table_name, JSON.stringify({"names": names, "marks": marks, "weights": weights}));
 	}
@@ -46,7 +50,7 @@
 </svelte:head>
 
 <div class="min-w-full flex justify-center items-center flex-col">
-	<form method="post" class="max-w-xl columns-1 w-11/12">
+	<div class="max-w-xl columns-1 w-11/12">
 		<div class="gap-2 md:gap-4 flex mb-2">
 			<h5 class="w-1/2">Name</h5>
 			<h5 class="w-1/4">Mark</h5>
@@ -62,7 +66,7 @@
 			</div>
 		{/each}
 		<button class="btn w-full" on:click={() => count = count + 1 }>+</button>
-	</form>
+	</div>
 	<p>Average: {current_average.toFixed(2)}%</p>
 	<span>What do I need to get: <input name="aim" bind:value={aim} min=0 max=100 type="number" class="border-solid border-2 border-neutral-500 rounded-md px-2 py-1 text-right">%</span>
 	<p>Whats needed: {needed.toFixed(2)}%</p>
@@ -81,7 +85,7 @@ input[type=number] {
 }
 
 .btn {
-	@apply bg-indigo-300 text-white font-bold rounded-md p-2 px-4 text-center;
+	@apply bg-indigo-300 text-white font-bold rounded-md p-2 px-4 text-center transition duration-200 ease-in-out;
 }
 .btn:hover{
 	@apply bg-indigo-400;
