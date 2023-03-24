@@ -6,7 +6,7 @@
 	let tabs = Object.keys(localStorage);
 	if(tabs.length === 0)tabs = ["New Course"];
 	tabs.sort();
-	
+
 	let current_tab = tabs[0];
 	let dropdown = false;
 
@@ -34,6 +34,9 @@
 
 		let i = tabs.indexOf(name);
 		if(i !== -1) tabs = [...tabs.slice(0, i), n_name, ...tabs.slice(i + 1)];
+
+		current_tab = n_name;
+		edit = false;
 	}
 
 	function get_unique_name(name){
@@ -46,6 +49,10 @@
 		}
 		return n_name;
 	}
+
+	const onKeyPress = e => {
+		if (e.charCode === 13) renameTab(current_tab, edit_bind);
+	};
 
 </script>
 
@@ -62,8 +69,8 @@
 			{#each tabs as tab, i (i)}
 				{#if (current_tab===tab && edit === true)}
 					<div class="tab flex" class:tab-current={current_tab === tab} >
-						<input type="text" required class="bg-indigo-300 w-full rounded-md text-start whitespace-nowrap text-ellipsis" bind:value={edit_bind} />
-						<button class="btn-secondary justify-self-end w-12" on:click={()=>{renameTab(tabs[i], edit_bind); edit=false;}}><Icon src={Check} class="w-5 h-5 mt-1 mx-2"/></button>
+						<input type="text" required class="bg-indigo-300 w-full rounded-md text-start whitespace-nowrap text-ellipsis" bind:value={edit_bind} on:keypress={onKeyPress} autofocus/>
+						<button class="btn-secondary justify-self-end w-12" on:click={()=>{renameTab(tabs[i], edit_bind);}}><Icon src={Check} class="w-5 h-5 mt-1 mx-2"/></button>
 						<button class="btn-secondary justify-self-end w-12" on:click={()=>{edit=false}}><Icon src={XMark} class="w-5 h-5 mt-1 mx-2"/></button>
 					</div>
 				{:else}
