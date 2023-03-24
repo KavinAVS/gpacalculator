@@ -12,7 +12,7 @@
 	function getTableVal(table_name){
 		if(table_name in localStorage){
 			let vals = JSON.parse(localStorage.getItem(table_name));
-			count = vals.marks.length;
+			count = vals.marks.length < 7 ? 7 : vals.marks.length;
 			marks = vals.marks;
 			weights = vals.weights;
 			names = vals.names;
