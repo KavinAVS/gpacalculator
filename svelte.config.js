@@ -15,7 +15,7 @@ const config = {
 			fallback: 'index.html',
 		}),
 		paths: {
-			base: dev ? '' : '/gpa-calculator',
+			base: dev ? '' : '/gpacalculator',
 		}
 	},
 	preprocess: vitePreprocess()
