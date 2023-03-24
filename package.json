@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "vite dev",
-		"build": "vite build",
+		"build": "mv docs/CNAME ./ && vite build && touch docs/.nojekyll && mv CNAME docs/",
 		"preview": "vite preview"
 	},
 	"devDependencies": {
