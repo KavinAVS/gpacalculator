@@ -25,7 +25,10 @@
 	}
 
 	function renameTab(name, edit_bind){
-		if(name === edit_bind) return;
+		if(name === edit_bind){
+			edit = false;
+			return
+		};
 
 		let n_name = get_unique_name(edit_bind);
 
